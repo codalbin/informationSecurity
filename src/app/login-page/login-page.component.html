@@ -1,0 +1,10 @@
+<div class="page">
+    <div class="fields">
+        <div class="fieldsContain">
+            <p>WELCOME <br> To our Information System project</p>
+            <input type="text" class="field" [(ngModel)]="loginUser" placeholder="User" data-lang-key="userPlaceholder">
+            <input type="password" class="field" [(ngModel)]="passwordUser" (keydown.enter)="login()" placeholder="Password" data-lang-key="password">
+            <button (click)="login()">Sign In</button>
+        </div>
+    </div>
+</div>

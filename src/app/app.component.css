@@ -1,0 +1,133 @@
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Mukta:wght@200;300;400;500;600;700;800&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+:host {
+    --myBlack: #182628;
+    --myWhite: #fff;
+    --myGrey: #DBDBDB;
+    --myGreen: #57BA98;
+    --font1: "Jost", sans-serif;
+}
+
+.page {
+    display: flex; 
+    position: relative;
+    flex-direction: column; 
+    align-items: center;  
+    justify-content: center;
+    height: 100vh;
+    background-color: var(--myGrey);
+}
+
+.background img {
+    width: 100%;  
+    height: 100%; 
+    opacity: 0.5;
+    object-fit: cover;
+}
+
+.fields {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--myGreen);
+    border-radius: 20px;
+    z-index: 10002;
+    padding: 40px 100px;
+    box-sizing: border-box;
+    border : 2px solid var(--myWhite);
+    max-height: 90vh;
+    max-width: 60vw;
+    min-width: 400px;
+    min-height: 200px;
+}
+
+.fieldsContain {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    max-height: calc(90vh - 80px); /* total division less padding */
+    padding-right: 10px; /* to move the scrollbar */
+    min-height: 120px;
+}
+
+.fields p {
+    font-size: 30px;
+    font-family: var(--font1);
+    text-align: center;
+    color: var(--myWhite);
+    margin-bottom: 20px;
+}
+
+.fields input {
+    width: 180px;
+    font-size: 12px;
+}
+
+.fields button {
+    margin-right: 5px;
+    border-radius: 20px;
+    background-color: var(--myWhite);
+    color: var(--myBlack);
+    border: none;
+    padding: 5px 10px;
+    font-size: 12px;
+}
+
+.fields button:hover {
+    background-color: var(--myBlack);
+    color: var(--myWhite);
+    cursor: pointer;
+}
+
+.field {
+    margin-bottom: 15px;
+    background-color: var(--myWhite);
+    color: var(--myBlack);
+    border-radius: 7px;
+    border-color: var(--myWhite);
+    /* width: 30vh;
+    height: 3vh; */
+}
+
+input:focus{
+    outline: 2px solid var(--myWhite);
+    border-color: var(--myGrey);
+    border-width: 3px;
+}
+
+/* For mobile screens */
+@media only screen and (max-width: 768px) {
+
+    .fields {
+        padding: 20px 10px;
+        max-width: 90vw;
+        min-width: auto;
+    }
+
+    .fieldsContain {
+        max-height: calc(90vh - 20px); /* total division less padding */
+    }
+
+    .fields p {
+        font-size: 20px;
+    }
+
+    .fields input {
+        font-size: 10px;
+    }
+
+    .fields button {
+        margin-right: 0;
+        margin-bottom: 10px;
+        padding: 6px 12px;
+        font-size: 10px;
+    }
+
+    .field {
+        width: 80vw;
+    }
+}
