@@ -1,9 +1,18 @@
 <div class="page">
-    <div class="fields">
+    <!-- <div class="fields">
         <div class="fieldsContain">
             <p>This is our homepage</p>
             <p>To go back to login page, click here</p>
             <button (click)="signOut()">Sign Out</button>
         </div>
+    </div> -->
+    <div>
+        <h3>Chiffrer et déchiffrer une vidéo</h3>
+        <input type="file" (change)="onSelectedData($event)" accept="video/mp4">
+        
+        <button (click)="decryptData()" [disabled]="!encryptedData">Déchiffrer la vidéo</button>
+      
+        <!-- Decrypted video -->
+        <video *ngIf="decryptedDataURL" controls [src]="decryptedDataURL" width="600"></video>
     </div>
 </div>
