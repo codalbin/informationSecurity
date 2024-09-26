@@ -1,18 +1,47 @@
 <div class="page">
-    <!-- <div class="fields">
+    <div class="fields">
         <div class="fieldsContain">
-            <p>This is our homepage</p>
+            <p>Select the document you want to save</p>
+            <div class="uploadDocument">
+                <h3>Text</h3>
+                <input type="text" [(ngModel)]="textTapped" placeholder="Enter your text">
+                <button (click)="onSelectedDataText()">Encrypt Text</button>
+                <button (click)="decryptDataText()">Decrypt Text</button>
+            </div>
+            <div class="uploadDocument">
+                <h3>Image (png/jpeg format)</h3>
+                <input type="file" (change)="onSelectedDataImage($event)" accept="image/png">
+                <button (click)="decryptDataImage()" [disabled]="!encryptedDataImageAES">Decrypt Image</button>
+            </div>
+            <div class="uploadDocument">
+                <h3>File (PDF/DOC/XLS format)</h3>
+                <input type="file" (change)="onSelectedDataDocument($event)" accept="application/octet-stream">
+                <button (click)="decryptDataDocument()" [disabled]="!encryptedDataDocumentAES">Decrypt Document</button>
+            </div>
+            <div class="uploadDocument">
+                <h3>Video (mp4 format)</h3>
+                <input type="file" (change)="onSelectedDataVideo($event)" accept="video/mp4">
+                <button (click)="decryptDataVideo()" [disabled]="!encryptedDataVideoAES">Decrypt Video</button>
+            </div>
             <p>To go back to login page, click here</p>
             <button (click)="signOut()">Sign Out</button>
         </div>
-    </div> -->
-    <div>
-        <h3>Chiffrer et déchiffrer une vidéo</h3>
+    </div>
+    <div class="displayResults">
+        <!-- <h3>Chiffrer et déchiffrer une vidéo</h3>
         <input type="file" (change)="onSelectedData($event)" accept="video/mp4">
         
-        <button (click)="decryptData()" [disabled]="!encryptedData">Déchiffrer la vidéo</button>
+        <button (click)="decryptData()" [disabled]="!encryptedData">Déchiffrer la vidéo</button> -->
       
         <!-- Decrypted video -->
-        <video *ngIf="decryptedDataURL" controls [src]="decryptedDataURL" width="600"></video>
+        <a *ngIf="encryptedDataTextAES">Text AES encoded : {{encryptedDataTextAES}} </a>
+        <a *ngIf="encryptedDataTextRC4">Text RC4 encoded : {{encryptedDataTextRC4}} </a>
+        <a *ngIf="encryptedDataTextDES">Text DES encoded : {{encryptedDataTextDES}} </a>
+        <a *ngIf="decryptedDataTextAES">Text AES decoded : {{decryptedDataTextAES}} </a>
+        <a *ngIf="decryptedDataTextRC4">Text RC4 decoded : {{decryptedDataTextRC4}} </a>
+        <a *ngIf="decryptedDataTextDES">Text DES decoded : {{decryptedDataTextDES}} </a>
+        <img *ngIf="decryptedDataURLImage" [src]="decryptedDataURLImage" alt="Decrypted Image" />
+        <a *ngIf="decryptedDataURLDocument" [href]="decryptedDataURLDocument" download="decrypted_document">Download decrypted document</a>
+        <video *ngIf="decryptedDataURLVideo" controls [src]="decryptedDataURLVideo" width="600"></video>
     </div>
 </div>

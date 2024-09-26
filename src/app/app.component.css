@@ -26,10 +26,10 @@
 }
 
 .fields {
-    position: fixed;
-    top: 50%;
+    /* position: fixed; */
+    /* top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%); */
     background: var(--myGreen);
     border-radius: 20px;
     z-index: 10002;
@@ -97,6 +97,15 @@ input:focus{
     outline: 2px solid var(--myWhite);
     border-color: var(--myGrey);
     border-width: 3px;
+}
+
+.uploadDocument {
+    margin-bottom: 10px ;
+}
+
+.displayResults {
+    display: flex;
+    flex-direction: column;
 }
 
 /* For mobile screens */
