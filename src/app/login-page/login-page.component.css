@@ -1,0 +1,113 @@
+.login-page .page {
+    display: flex; 
+    position: relative;
+    flex-direction: column; 
+    align-items: center;  
+    justify-content: center;
+    height: 100vh;
+    background-color: var(--myGrey);
+}
+
+.login-fields {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--myGreen);
+    border-radius: 20px;
+    z-index: 10002;
+    padding: 40px 100px;
+    box-sizing: border-box;
+    border: 2px solid var(--myWhite);
+    max-height: 90vh;
+    max-width: 60vw;
+    min-width: 400px;
+    min-height: 200px;
+}
+
+.login-fieldsContain {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    max-height: calc(90vh - 80px);
+    padding-right: 10px;
+    min-height: 120px;
+}
+
+.login-title {
+    font-size: 30px;
+    font-family: var(--font1);
+    text-align: center;
+    color: var(--myWhite);
+    margin-bottom: 20px;
+}
+
+.login-field {
+    margin-bottom: 15px;
+    background-color: var(--myWhite);
+    color: var(--myBlack);
+    border-radius: 7px;
+    border-color: var(--myWhite);
+}
+
+.login-fields input {
+    width: 180px;
+    font-size: 12px;
+}
+
+.login-fields button {
+    margin-right: 5px;
+    border-radius: 20px;
+    background-color: blueviolet;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    font-size: 12px;
+}
+
+.login-fields button:hover {
+    background-color: darkviolet;
+    color: var(--myWhite);
+    cursor: pointer;
+}
+
+input:focus {
+    outline: 2px solid var(--myWhite);
+    border-color: var(--myGrey);
+    border-width: 3px;
+}
+
+/* Mobile Styles */
+@media only screen and (max-width: 768px) {
+    .login-fields {
+        padding: 20px 10px;
+        max-width: 90vw;
+        min-width: auto;
+    }
+
+    .login-fieldsContain {
+        max-height: calc(90vh - 20px);
+    }
+
+    .login-fields p {
+        font-size: 20px;
+    }
+
+    .login-fields input {
+        font-size: 10px;
+    }
+
+    .login-fields button {
+        margin-right: 0;
+        margin-bottom: 10px;
+        padding: 6px 12px;
+        font-size: 10px;
+    }
+
+    .login-field {
+        width: 80vw;
+    }
+}
