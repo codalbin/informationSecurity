@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
-import { NgxIndexedDBService, DBConfig, NgxIndexedDBModule } from 'ngx-indexed-db';
-import { InjectableProvider } from '@angular/core';
+import { Injectable, Inject} from '@angular/core';
+import { InjectionToken } from '@angular/core';
+import { NgxIndexedDBService, DBConfig} from 'ngx-indexed-db';
 import { Observable } from 'rxjs';
 
-const dbConfig: DBConfig = {
+export const dbConfig: DBConfig = {
   name: 'Database',
   version: 1,
   objectStoresMeta: [
@@ -70,7 +70,7 @@ const dbConfig: DBConfig = {
   providedIn: 'root'
 })
 export class DatabaseService {
-  constructor(private dbService: NgxIndexedDBService) { }
+  constructor(private dbService: NgxIndexedDBService) {}
 
   addUser(username: string, password: string) {
     return this.dbService.add('users', { username: username, password: password });
@@ -126,6 +126,12 @@ export interface PDFFile {
   filename: string;
   data: string;
 }
+
+export interface User {
+  username: string;
+  password: string;
+}
+
 
 
 
