@@ -1,0 +1,13 @@
+<div class="page">
+    <div class="fields">
+        <div class="fieldsContain">
+            <p>WELCOME <br> To our Information System project</p>
+            <p>Please Create an Account</p>
+            <input type="text" class="field" [(ngModel)]="loginUser" placeholder="User">
+            <input type="password" class="field" [(ngModel)]="passwordUser" placeholder="Password">
+            <input type="password" class="field" [(ngModel)]="passwordUserConfirmation" (keydown.enter)="signIn()" placeholder="Confirm Password">
+            <h1 *ngIf="errorMessage"> {{ errorMessage }} </h1>
+            <button (click)="signIn()">Sign In</button>
+        </div>
+    </div>
+</div>

@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { EncryptionService } from '../encryption.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { BackConnectionService } from '../back-connection.service';
+import * as CryptoJS from 'crypto-js';
 
 @Component({
   selector: 'app-homepage',
@@ -15,9 +17,11 @@ export class HomepageComponent {
 
   constructor(
     private router: Router,
-    private encryptionService: EncryptionService
+    private encryptionService: EncryptionService,
+    private back: BackConnectionService
   ) {}
 
+  textName: string = "" ;
   textTapped: string = "" ;
   encryptedDataTextAES: string = "";
   encryptedDataTextRC4: string = "";
@@ -25,133 +29,104 @@ export class HomepageComponent {
   decryptedDataTextAES: string = "";
   decryptedDataTextRC4: string = "";
   decryptedDataTextDES: string = "";
-  
-  encryptedDataImageAES: string = "";
-  encryptedDataImageRC4: string = "";
-  encryptedDataImageDES: string = "";
-  decryptedDataURLImage: string = "";
 
-  encryptedDataDocumentAES: string = "";
-  encryptedDataDocumentRC4: string = "";
-  encryptedDataDocumentDES: string = "";
-  decryptedDataURLDocument: string = "";
+  encryptedVideo: string = ''; // Contenu crypté de la vidéo
+  downloadLink: string | null = null; // URL de téléchargement pour la vidéo décryptée
 
-  encryptedDataVideoAES: string = "" ;
-  encryptedDataVideoRC4: string = "" ;
-  encryptedDataVideoDES: string = "" ;
-  decryptedDataURLVideo: string = "" ;
+  encryptedFile: string = ''; // Contenu crypté du fichier texte ou PDF
+  fileDownloadLink: string | null = null; // URL de téléchargement pour le fichier décrypté
+  fileName: string = ''; // Nom du fichier décrypté
 
   signOut() {
     this.router.navigate(['login-page']);
   }
 
+  navigateToVisualiseData() {
+    this.router.navigate(['visualiseData']);
+  }
+
+  addText(){
+    this.back.saveText('123456789', 'test', 'tetetete', 'tatatata', 'totototo').subscribe(reponse => {
+      console.log('reponse : ' + reponse.message)
+    }) ;
+  }
+
   // Encrypt selected text
   onSelectedDataText() {
-    if (this.textTapped != "") {
-      this.decryptedDataTextAES = "" ;
-      this.decryptedDataTextRC4 = "" ;
-      this.decryptedDataTextDES = "" ;
-      [this.encryptedDataTextAES, this.encryptedDataTextRC4, this.encryptedDataTextDES] = this.encryptionService.encrypt(this.textTapped);
+    if (this.textName != "" && this.textTapped != "") {
+      this.encryptionService.encryptText(this.textName, this.textTapped).then((response) => {
+        console.log(response) ;
+      });
+      this.textName = "" ;
       this.textTapped = "" ;
     }
   }
 
-  // Decrypt image
+  // Decrypt text
   decryptDataText() {
-    [this.decryptedDataTextAES, this.decryptedDataTextRC4, this.decryptedDataTextDES] = this.encryptionService.decrypt(this.encryptedDataTextAES, this.encryptedDataTextRC4, this.encryptedDataTextDES);
-    this.encryptedDataTextAES = "" ;
-    this.encryptedDataTextRC4 = "" ;
-    this.encryptedDataTextDES = "" ;
-  }
-
-  // Encrypt selected image
-  onSelectedDataImage(event: any) {
-    const file = event.target.files[0];
-    if (file) {
-      this.encryptionService.encryptFile(file).then((data: any) => {
-        [this.encryptedDataImageAES, this.encryptedDataImageRC4, this.encryptedDataImageDES] = data;
-        console.log('Encrypted image data AES:', this.encryptedDataImageAES);
-        console.log('Encrypted image data RC4:', this.encryptedDataImageRC4);
-        console.log('Encrypted image data DES:', this.encryptedDataImageDES);
-      }).catch((error: any) => {
-        console.error('Encryption error:', error);
-      });
+    if (this.encryptedDataTextAES != "" && this.encryptedDataTextRC4 != "" && this.encryptedDataTextDES != "") {
+      this.encryptionService.decryptText(this.encryptedDataTextAES, this.encryptedDataTextRC4, this.encryptedDataTextDES).then((response) => {
+        this.decryptedDataTextAES = response[0] ;
+        this.decryptedDataTextRC4 = response[1] ;
+        this.decryptedDataTextDES = response[2] ;
+      }) ;
+      this.encryptedDataTextAES = "" ;
+      this.encryptedDataTextRC4 = "" ;
+      this.encryptedDataTextDES = "" ;
     }
   }
 
-  // Decrypt image
-  decryptDataImage() {
-    if (this.encryptedDataImageAES) {
-      this.encryptionService.decryptFile(this.encryptedDataImageAES, "AES").then((decryptedBuffer: string) => {
-        // To decrypt video
-        const blob = new Blob([decryptedBuffer], { type: 'image/png' });
-        // Generate an URL from the data
-        this.decryptedDataURLImage = URL.createObjectURL(blob); 
-        console.log('Data decrypted :', this.encryptedDataImageAES);
-      }).catch((error: any) => {
-        console.error('Decryption error:', error);
-      });
+  // Encrypt an element imported
+  onFileSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      const file = input.files[0];
+      const fileType = file.type.split('/')[0];
+      // Call different method depending of the type of the document
+      if (fileType === 'video') {
+        this.encryptionService.encryptVideo(file.name, file).then((response) => {
+          console.log(response)
+          // this.encryptedVideo = encryptedV ;
+        });
+      } else if (fileType === 'application' || fileType === 'text') {
+        this.encryptionService.encryptFile(file.name, file).then((response) => {
+          console.log('Response : ' + response)
+          // this.fileName = fileName ;
+          // this.encryptedFile = encryptedF ;
+          this.testDecrypt(response) ;
+        });
+      } else if (fileType === 'image') {
+        this.encryptionService.encryptImage(file.name, file).then((response) => {
+          console.log('Image encrypted successfully:', response);
+        }).catch((error) => {
+          console.error('Encryption error:', error);
+        });
+      }
     }
   }
 
-  // Encrypt selected document (XML, PDF, XLS)
-  onSelectedDataDocument(event: any) {
-    const file = event.target.files[0];
-    if (file) {
-      this.encryptionService.encryptFile(file).then((data: any) => {
-        [this.encryptedDataDocumentAES, this.encryptedDataDocumentRC4, this.encryptedDataDocumentDES] = data;
-        console.log('Encrypted document data:', this.encryptedDataDocumentAES);
-        console.log('Encrypted document data:', this.encryptedDataDocumentRC4);
-        console.log('Encrypted document data:', this.encryptedDataDocumentDES);
-      }).catch((error: any) => {
-        console.error('Encryption error:', error);
-      });
-    }
-  }
-
-  // Decrypt document
-  decryptDataDocument() {
-    if (this.encryptedDataDocumentAES) {
-      this.encryptionService.decryptFile(this.encryptedDataDocumentAES, "AES").then((decryptedBuffer: string) => {
-        // To decrypt video
-        const blob = new Blob([decryptedBuffer], { type: 'application/octet-stream' });
-        // Generate an URL from the data
-        this.decryptedDataURLDocument = URL.createObjectURL(blob); 
-        console.log('Data decrypted :', this.encryptedDataDocumentAES);
-      }).catch((error: any) => {
-        console.error('Decryption error:', error);
-      });
-    }
-  }
-
-  // Encrypt a video
-  onSelectedDataVideo(event: any) {
-    const file = event.target.files[0];
-    if (file) {
-      this.encryptionService.encryptFile(file).then((data: any) => {
-        [this.encryptedDataVideoAES, this.encryptedDataVideoRC4, this.encryptedDataVideoDES] = data;
-        console.log('Encrypted data :', this.encryptedDataVideoAES);
-        console.log('Encrypted data :', this.encryptedDataVideoRC4);
-        console.log('Encrypted data :', this.encryptedDataVideoDES);
-      }).catch((error: any) => {
-        console.error('Encryption error :', error);
-      });
-    }
+  testDecrypt(AES: string): void {
+    // this.encryptionService.decryptFile(AES, AES, AES, "coonvention_compressee.pdf").then((response) => {
+    //   console.log('Decrypted file : ' + response[0])
+    // }) ;
   }
 
   // Decrypt a video
-  decryptDataVideo() {
-    if (this.encryptedDataVideoAES) {
-      this.encryptionService.decryptFile(this.encryptedDataVideoAES, "AES").then((decryptedBuffer: string) => {
-        // To decrypt video
-        const blob = new Blob([decryptedBuffer], { type: 'video/mp4' });
-        // Generate an URL from the data
-        this.decryptedDataURLVideo = URL.createObjectURL(blob); 
-        console.log('Data decrypted :', this.encryptedDataVideoAES);
-      }).catch((error: any) => {
-        console.error('Decryption error:', error);
-      });
-    }
+  decryptVideo() {
+    if (!this.encryptedVideo) return;
+
+    // this.encryptionService.decryptVideo(this.encryptedVideo).then((link) => {
+    //   this.downloadLink = link ;
+    // })
+  }
+
+  // Decrypt a file
+  decryptFile() {
+    if (!this.encryptedFile) return;
+  
+    // this.encryptionService.decryptFile(this.encryptedFile, this.fileName).then((link) => {
+    //   this.fileDownloadLink = link ;
+    // })
   }
 
 }

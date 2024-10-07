@@ -2,9 +2,12 @@
     <div class="fields">
         <div class="fieldsContain">
             <p>WELCOME <br> To our Information System project</p>
-            <input type="text" class="field" [(ngModel)]="loginUser" placeholder="User" data-lang-key="userPlaceholder">
-            <input type="password" class="field" [(ngModel)]="passwordUser" (keydown.enter)="login()" placeholder="Password" data-lang-key="password">
-            <button (click)="login()">Sign In</button>
+            <p>Please Connect to your Account</p>
+            <input type="text" class="field" [(ngModel)]="loginUser" placeholder="User">
+            <input type="password" class="field" [(ngModel)]="passwordUser" (keydown.enter)="login()" placeholder="Password">
+            <button (click)="login()">Log In</button>
+            <h1 *ngIf="errorMessage"> {{ errorMessage }} </h1>
+            <button (click)="navigateToSignIn()">Sign In</button>
         </div>
     </div>
 </div>

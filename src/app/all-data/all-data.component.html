@@ -1,0 +1,33 @@
+<p>All Texts</p>
+<p>Click a texte to decrypt</p>
+<button (click)="getAllTexts()">Get all Texts</button>
+<div *ngFor="let text of allTexts">
+    <div (click)="onTextClick(text)">
+        {{ text || 'No text' }}
+    </div>
+</div>
+<div>
+    <a *ngIf="decryptedDataTextAES">Text AES decrypted : {{decryptedDataTextAES}} </a>
+    <a *ngIf="decryptedDataTextRC4">Text RC4 decrypted : {{decryptedDataTextRC4}} </a>
+    <a *ngIf="decryptedDataTextDES">Text DES decrypted : {{decryptedDataTextDES}} </a>
+</div>
+
+<p>All Files</p>
+<button (click)="getAllFiles()">Get all Files</button>
+<div *ngFor="let file of allFiles">
+    <div (click)="onFileClick(file)">
+        {{ file || 'No file' }}
+    </div>
+</div>
+<div *ngIf="decryptedDataFileAES">
+    <h3>Decrypted File AES :</h3>
+    <a [href]="decryptedDataFileAES" [download]="fileName">Download file AES</a>
+</div>
+<div *ngIf="decryptedDataFileRC4">
+    <h3>Decrypted File RC4 :</h3>
+    <a [href]="decryptedDataFileRC4" [download]="fileName">Download file RC4</a>
+</div>
+<div *ngIf="decryptedDataFileDES">
+    <h3>Decrypted File DES :</h3>
+    <a [href]="decryptedDataFileDES" [download]="fileName">Download file DES</a>
+</div>

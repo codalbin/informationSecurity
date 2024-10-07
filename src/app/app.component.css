@@ -5,6 +5,7 @@
     --myWhite: #fff;
     --myGrey: #DBDBDB;
     --myGreen: #57BA98;
+    --myRed: #f51b1b;
     --font1: "Jost", sans-serif;
 }
 
@@ -60,6 +61,13 @@
     text-align: center;
     color: var(--myWhite);
     margin-bottom: 20px;
+}
+
+.fields h1 {
+    font-size: 12px;
+    font-family: var(--font1);
+    text-align: center;
+    color: var(--myRed);
 }
 
 .fields input {
