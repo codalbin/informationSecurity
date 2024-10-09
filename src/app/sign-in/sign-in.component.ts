@@ -38,7 +38,7 @@ export class SignInComponent {
       }, 3000);
     } else {
       const hashedPassword = this.encryption.hashPassword(this.passwordUser) ;
-      this.back.register(this.loginUser, hashedPassword).subscribe({
+      this.back.signIn(this.loginUser, hashedPassword).subscribe({
           next: () => {
               this.navigateToLogin();
           },

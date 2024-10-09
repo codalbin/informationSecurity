@@ -4,7 +4,6 @@ import { EncryptionService } from '../encryption.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { BackConnectionService } from '../back-connection.service';
-import { Buffer } from 'buffer';
 
 @Component({
   selector: 'app-all-data',
@@ -34,14 +33,6 @@ export class AllDataComponent implements OnInit {
   decryptedDataFileDES: string = "";
 
   fileName: string = "" ;
-
-  downloadLinkAES: string | null = null;
-  downloadLinkRC4: string | null = null;
-  downloadLinkDES: string | null = null;
-
-  fileDownloadLinkAES: string | null = null;
-  fileDownloadLinkRC4: string | null = null;
-  fileDownloadLinkDES: string | null = null;
 
   ngOnInit(): void {
     this.getAllTexts() ;

@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { BackConnectionService } from '../back-connection.service';
 import { EncryptionService } from '../encryption.service';
-import * as CryptoJS from 'crypto-js';
 
 @Component({
   selector: 'app-login-page',

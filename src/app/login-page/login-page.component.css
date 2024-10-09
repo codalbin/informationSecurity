@@ -14,3 +14,7 @@
 .fieldsContain {
     max-height: calc(90vh - 80px);
 }
+
+.onSameLine {
+    margin-top: 15px;
+}
