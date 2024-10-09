@@ -1,40 +1,22 @@
 <div class="page">
     <div class="fields">
         <div class="fieldsContain">
-            <p>Select the document you want to save</p>
-            <div class="uploadDocument">
-                <h3>Text</h3>
-                <input type="text" [(ngModel)]="textName" placeholder="Name of your text">
-                <input type="text" [(ngModel)]="textTapped" placeholder="Enter your text">
+            <div class="addTextOrDocument">
+                <h1>Encrypt a Text</h1>
+                <input type="text" [(ngModel)]="textName" placeholder="Title of your text">
+                <textarea [(ngModel)]="textTapped" placeholder="Enter your text" rows="8" cols="50"></textarea>
+                <h3 *ngIf="errorMessageText"> {{ errorMessageText }} </h3>
                 <button (click)="onSelectedDataText()">Encrypt Text</button>
-                <button (click)="decryptDataText()">Decrypt Text</button>
             </div>
-            <input type="file" (change)="onFileSelected($event)" accept="video/*, .txt, .pdf, .png, .jpeg, .jpg" />
-    
-            <!-- Section pour le décryptage des vidéos -->
-            <button (click)="decryptVideo()" [disabled]="!encryptedVideo">Décrypter la Vidéo</button>
-            <div *ngIf="downloadLink">
-                <h3>Vidéo Décryptée :</h3>
-                <a [href]="downloadLink" download="decrypted-video.mp4">Télécharger la Vidéo Décryptée</a>
+            <div class="addTextOrDocument">
+                <h1>Upload a Document</h1>
+                <p>Autorised types : .mp4, .txt, .pdf, .png, .jpeg, .jpg</p>
+                <input type="file" (change)="onFileSelected($event)" accept="video/*, .txt, .pdf, .png, .jpeg, .jpg" />
             </div>
-            
-            <!-- Section pour le décryptage des fichiers texte ou PDF -->
-            <button (click)="decryptFile()" [disabled]="!encryptedFile">Décrypter le Fichier</button>
-            <div *ngIf="fileDownloadLink">
-                <h3>Fichier Décrypté :</h3>
-                <a [href]="fileDownloadLink" [download]="fileName">Télécharger le Fichier Décrypté</a>
+            <div class="onSameLine">
+                <button (click)="navigateToVisualiseData()">Access encrypted Texts & Documents</button>
+                <button (click)="signOut()">Sign Out</button>
             </div>
-            <p>To go back to login page, click here</p>
-            <button (click)="signOut()">Sign Out</button>
-            <button (click)="navigateToVisualiseData()">Visualise allData</button>
-            <button (click)="addText()">Add text DB</button>
-
-            <a *ngIf="encryptedDataTextAES">Text AES encoded : {{encryptedDataTextAES}} </a>
-            <a *ngIf="encryptedDataTextRC4">Text RC4 encoded : {{encryptedDataTextRC4}} </a>
-            <a *ngIf="encryptedDataTextDES">Text DES encoded : {{encryptedDataTextDES}} </a>
-            <a *ngIf="decryptedDataTextAES">Text AES decoded : {{decryptedDataTextAES}} </a>
-            <a *ngIf="decryptedDataTextRC4">Text RC4 decoded : {{decryptedDataTextRC4}} </a>
-            <a *ngIf="decryptedDataTextDES">Text DES decoded : {{decryptedDataTextDES}} </a>
         </div>
     </div>
 </div>

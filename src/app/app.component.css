@@ -3,18 +3,18 @@
 :host {
     --myBlack: #182628;
     --myWhite: #fff;
-    --myGrey: #DBDBDB;
+    --myGrey: #E3E3E3;
     --myGreen: #57BA98;
+    --myGreen2: #73ccad;
     --myRed: #f51b1b;
+    --myBlue: #015cc4;
     --font1: "Jost", sans-serif;
 }
 
 .page {
     display: flex; 
     position: relative;
-    flex-direction: column; 
     align-items: center;  
-    justify-content: center;
     height: 100vh;
     background-color: var(--myGrey);
 }
@@ -34,11 +34,10 @@
     background: var(--myGreen);
     border-radius: 20px;
     z-index: 10002;
-    padding: 40px 100px;
+    padding: 30px 100px;
     box-sizing: border-box;
     border : 2px solid var(--myWhite);
     max-height: 90vh;
-    max-width: 60vw;
     min-width: 400px;
     min-height: 200px;
 }
@@ -50,32 +49,73 @@
     width: 100%;
     height: 100%;
     overflow-y: auto;
-    max-height: calc(90vh - 80px); /* total division less padding */
-    padding-right: 10px; /* to move the scrollbar */
+    padding-right: 10px; /* to move the llbar */
     min-height: 120px;
 }
 
-.fields p {
+.bottomFields {
+    margin-top: 30px;
+    font-style: italic;
+}
+
+.text {
+    margin-bottom: 15px;
+}
+
+.fields h1 {
     font-size: 30px;
     font-family: var(--font1);
     text-align: center;
     color: var(--myWhite);
-    margin-bottom: 20px;
+    font-weight: 500;
 }
-
-.fields h1 {
+.fields h2 {
+    font-size: 20px;
+    font-family: var(--font1);
+    text-align: center;
+    color: var(--myWhite);
+    font-weight: 400;
+}
+.fields h3 {
     font-size: 12px;
     font-family: var(--font1);
     text-align: center;
     color: var(--myRed);
+    font-weight: 500;
+}
+.fields h4 {
+    font-size: 16px;
+    font-family: var(--font1);
+    text-align: center;
+    color: var(--myGrey);
+    font-weight: 500;
+}
+.fields p {
+    font-size: 12px;
+    font-family: var(--font1);
+    text-align: center;
+    color: var(--myWhite);
+    font-style: italic;
+}
+.fields a {
+    color: var(--myBlue);
 }
 
 .fields input {
     width: 180px;
-    font-size: 12px;
+    font-size: 14px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    font-family: var(--font1);
+}
+.fields textarea {
+    width: 100%;
+    font-size: 14px;
+    font-family: var(--font1);
 }
 
 .fields button {
+    margin-top: 5px;
     margin-right: 5px;
     border-radius: 20px;
     background-color: var(--myWhite);
@@ -107,13 +147,41 @@ input:focus{
     border-width: 3px;
 }
 
-.uploadDocument {
-    margin-bottom: 10px ;
+textarea:focus{
+    outline: 2px solid var(--myWhite);
+    border-color: var(--myGrey);
+    border-width: 3px;
+}
+
+.addTextOrDocument {
+    margin-bottom: 40px ;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.listOfTextsOrDocuments {
+    margin-top: 20px;
 }
 
 .displayResults {
     display: flex;
     flex-direction: column;
+}
+
+.onSameLine {
+    display: flex;
+    flex-direction: row;
+}
+
+.decryptedText {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.downloadLink {
+    margin-top: 12px;
+    text-align: center;
 }
 
 /* For mobile screens */

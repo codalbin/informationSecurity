@@ -23,6 +23,8 @@ export class HomepageComponent {
 
   textName: string = "" ;
   textTapped: string = "" ;
+  errorMessageText: string = "" ;
+
   encryptedDataTextAES: string = "";
   encryptedDataTextRC4: string = "";
   encryptedDataTextDES: string = "";
@@ -59,6 +61,11 @@ export class HomepageComponent {
       });
       this.textName = "" ;
       this.textTapped = "" ;
+    } else {
+      this.errorMessageText = "Complete the title or the text" ;
+      setTimeout(() => {
+        this.errorMessageText = '';
+      }, 3000);
     }
   }
 

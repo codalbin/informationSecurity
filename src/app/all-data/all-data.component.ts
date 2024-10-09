@@ -23,6 +23,7 @@ export class AllDataComponent implements OnInit {
 
   allTexts: any ;
   allFiles: any ;
+  textSelected: string = "" ;
 
   decryptedDataTextAES: string = "";
   decryptedDataTextRC4: string = "";
@@ -45,6 +46,14 @@ export class AllDataComponent implements OnInit {
   ngOnInit(): void {
     this.getAllTexts() ;
     this.getAllFiles();
+  }
+
+  navigateToHomepage() {
+    this.router.navigate(['homepage']);
+  }
+
+  navigateToLogin() {
+    this.router.navigate(['login-page']);
   }
 
   // Get the token to identify the user connected
@@ -77,6 +86,7 @@ export class AllDataComponent implements OnInit {
 
   onTextClick(name: string): void {
     console.log('Text name:', name);
+    this.textSelected = name ;
     this.back.getOneText(this.getToken(), name).subscribe(response => {
       console.log('text from DB : ' + response.text_data_AES)
       if (response.text_data_AES) {
