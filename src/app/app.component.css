@@ -8,6 +8,8 @@
     --myGreen2: #73ccad;
     --myRed: #f51b1b;
     --myBlue: #015cc4;
+    --myBlue2: #236dc1 ;
+    --myBlue3: #6894c7 ;
     --font1: "Jost", sans-serif;
 }
 
@@ -27,7 +29,6 @@
 }
 
 .fields {
-    background: var(--myGreen);
     border-radius: 20px;
     z-index: 10002;
     padding: 30px 100px;

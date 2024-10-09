@@ -4,6 +4,7 @@
 }
 
 .fields {
+    background: var(--myGreen);
     position: fixed;
     top: 50%;
     left: 50%;

@@ -1,8 +1,8 @@
 <div class="page">
-    <div class="fields">
+    <div class="fields fieldsColor1">
         <h1>Encrypted Texts</h1>
         <p>Click on a text to decrypt it</p>
-        <div class="fieldsContain">
+        <div class="fieldsContain fieldsContainColor1">
             <div class="addTextOrDocument">
                 <div class="listOfTextsOrDocuments">
                     <div *ngFor="let text of allTexts">
@@ -13,6 +13,14 @@
                     </div>
                     <p>- - - - - - - - - - - - - - - - - - -</p>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="fields fieldsColor2">
+        <h1>Decryption</h1>
+        <p>Click on a text or a document to decrypt it</p>
+        <div class="fieldsContain fieldsContainColor2">
+            <div class="addTextOrDocument">
                 <div class="decryptedText">
                     <h2 *ngIf="decryptedDataTextAES">Text "{{textSelected}}" AES decryption :</h2>
                     <h4 *ngIf="decryptedDataTextAES">{{decryptedDataTextAES}} </h4>
@@ -20,9 +28,18 @@
                     <h4 *ngIf="decryptedDataTextRC4">{{decryptedDataTextRC4}} </h4>
                     <h2 *ngIf="decryptedDataTextDES">Text "{{textSelected}}" DES decryption :</h2>
                     <h4 *ngIf="decryptedDataTextDES">{{decryptedDataTextDES}} </h4>
-                    <!-- <h4 *ngIf="decryptedDataTextAES">Text "{{textSelected}}" AES decryption : <br> {{decryptedDataTextAES}} </h4>
-                    <h4 *ngIf="decryptedDataTextRC4">Text "{{textSelected}}" RC4 decryption : <br> {{decryptedDataTextRC4}} </h4>
-                    <h4 *ngIf="decryptedDataTextDES">Text "{{textSelected}}" DES decryption : <br> {{decryptedDataTextDES}} </h4> -->
+                    <div *ngIf="decryptedDataFileAES" class="downloadLink">
+                        <h4>Decrypted File AES :</h4>
+                        <a [href]="decryptedDataFileAES" [download]="fileName">AES_{{fileName}}</a>
+                    </div>
+                    <div *ngIf="decryptedDataFileRC4" class="downloadLink">
+                        <h4>Decrypted File RC4 :</h4>
+                        <a [href]="decryptedDataFileRC4" [download]="fileName">RC4_{{fileName}}</a>
+                    </div>
+                    <div *ngIf="decryptedDataFileDES" class="downloadLink">
+                        <h4>Decrypted File DES :</h4>
+                        <a [href]="decryptedDataFileDES" [download]="fileName">DES_{{fileName}}</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -31,10 +48,10 @@
             <button (click)="navigateToLogin()">Sign Out</button>
         </div>
     </div>
-    <div class="fields">
+    <div class="fields fieldsColor1">
         <h1>Encrypted Documents</h1>
         <p>Click on a document to decrypt it</p>
-        <div class="fieldsContain">
+        <div class="fieldsContain fieldsContainColor1">
             <div class="addTextOrDocument">
                 <div class="listOfTextsOrDocuments">
                     <div *ngFor="let file of allFiles">
@@ -45,23 +62,7 @@
                     </div>
                 </div>
                 <p>- - - - - - - - - - - - - - - - - - -</p>
-                <div *ngIf="decryptedDataFileAES" class="downloadLink">
-                    <h4>Decrypted File AES :</h4>
-                    <a [href]="decryptedDataFileAES" [download]="fileName">AES_{{fileName}}</a>
-                </div>
-                <div *ngIf="decryptedDataFileRC4" class="downloadLink">
-                    <h4>Decrypted File RC4 :</h4>
-                    <a [href]="decryptedDataFileRC4" [download]="fileName">RC4_{{fileName}}</a>
-                </div>
-                <div *ngIf="decryptedDataFileDES" class="downloadLink">
-                    <h4>Decrypted File DES :</h4>
-                    <a [href]="decryptedDataFileDES" [download]="fileName">DES_{{fileName}}</a>
-                </div>
             </div>
-        </div>
-        <div class="onSameLine">
-            <button (click)="navigateToHomepage()">Encrypt a new Document</button>
-            <button (click)="navigateToLogin()">Sign Out</button>
         </div>
     </div>
 </div>

@@ -4,6 +4,7 @@
 }
 
 .fields {
+    background: var(--myGreen);
     max-width: 60vw;
 }
 

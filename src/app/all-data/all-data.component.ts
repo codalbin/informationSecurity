@@ -76,6 +76,9 @@ export class AllDataComponent implements OnInit {
   }
 
   onTextClick(name: string): void {
+    this.decryptedDataFileAES = "" ;
+    this.decryptedDataFileRC4 = "" ;
+    this.decryptedDataFileDES = "" ;
     console.log('Text name:', name);
     this.textSelected = name ;
     this.back.getOneText(this.getToken(), name).subscribe(response => {
@@ -93,6 +96,9 @@ export class AllDataComponent implements OnInit {
   }
 
   onFileClick(name: string): void {
+    this.decryptedDataTextAES = "" ;
+    this.decryptedDataTextRC4 = "" ;
+    this.decryptedDataTextDES = "" ;
     console.log('File name :', name);
     this.back.getOneFile(this.getToken(), name).subscribe(response => {
       // console.log(response.file_data_AES, response.file_data_RC4, response.file_data_DES);

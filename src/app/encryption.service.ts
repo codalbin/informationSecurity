@@ -66,9 +66,17 @@ export class EncryptionService {
       fileReader.onload = () => {
         const arrayBuffer = fileReader.result as ArrayBuffer;
         const wordArray = CryptoJS.lib.WordArray.create(arrayBuffer);
+
+        console.time('AES Encryption Time');
         const encryptedAES = CryptoJS.AES.encrypt(wordArray, this.key).toString();
+        console.timeEnd('AES Encryption Time');
+        console.time('RC4 Encryption Time');
         const encryptedRC4 = CryptoJS.RC4.encrypt(wordArray, this.key).toString();
+        console.timeEnd('RC4 Encryption Time');
+        console.time('DES Encryption Time');
         const encryptedDES = CryptoJS.DES.encrypt(wordArray, this.key).toString();
+        console.timeEnd('DES Encryption Time');
+
         this.back.saveFile(this.getToken(), videoTitle, encryptedAES, encryptedRC4, encryptedDES).subscribe({
           next: (body) => {
             resolve(body.message) ;
@@ -91,9 +99,15 @@ export class EncryptionService {
         const arrayBuffer = fileReader.result as ArrayBuffer;
         const wordArray = CryptoJS.lib.WordArray.create(arrayBuffer);
   
+        console.time('AES Encryption Time');
         const encryptedAES = CryptoJS.AES.encrypt(wordArray, this.key).toString();
+        console.timeEnd('AES Encryption Time');
+        console.time('RC4 Encryption Time');
         const encryptedRC4 = CryptoJS.RC4.encrypt(wordArray, this.key).toString();
+        console.timeEnd('RC4 Encryption Time');
+        console.time('DES Encryption Time');
         const encryptedDES = CryptoJS.DES.encrypt(wordArray, this.key).toString();
+        console.timeEnd('DES Encryption Time');
   
         this.back.saveFile(this.getToken(), imageTitle, encryptedAES, encryptedRC4, encryptedDES).subscribe({
           next: (body) => {
@@ -130,9 +144,17 @@ export class EncryptionService {
         fileReader.onload = () => {
           const arrayBuffer = fileReader.result as ArrayBuffer;
           const wordArray = CryptoJS.lib.WordArray.create(arrayBuffer);
+          
+          console.time('AES Encryption Time');
           const encryptedAES = CryptoJS.AES.encrypt(wordArray, this.key).toString();
+          console.timeEnd('AES Encryption Time');
+          console.time('RC4 Encryption Time');
           const encryptedRC4 = CryptoJS.RC4.encrypt(wordArray, this.key).toString();
+          console.timeEnd('RC4 Encryption Time');
+          console.time('DES Encryption Time');
           const encryptedDES = CryptoJS.DES.encrypt(wordArray, this.key).toString();
+          console.timeEnd('DES Encryption Time');
+
           console.log('encryption pdf : ' + encryptedAES) ;
           this.back.saveFile(this.getToken(), fileTitle, encryptedAES, encryptedRC4, encryptedDES).subscribe({
             next: (body) => {
@@ -148,9 +170,17 @@ export class EncryptionService {
         fileReader.readAsText(fileBlob);
         fileReader.onload = () => {
           const fileContent = fileReader.result as string;
+
+          console.time('AES Encryption Time');
           const encryptedAES = CryptoJS.AES.encrypt(fileContent, this.key).toString();
+          console.timeEnd('AES Encryption Time');
+          console.time('RC4 Encryption Time');
           const encryptedRC4 = CryptoJS.RC4.encrypt(fileContent, this.key).toString();
+          console.timeEnd('RC4 Encryption Time');
+          console.time('DES Encryption Time');
           const encryptedDES = CryptoJS.DES.encrypt(fileContent, this.key).toString();
+          console.timeEnd('DES Encryption Time');
+
           console.log('encryption txt : ' + encryptedAES) ;
           this.back.saveFile(this.getToken(), fileTitle, encryptedAES, encryptedRC4, encryptedDES).subscribe({
             next: (body) => {
@@ -185,9 +215,15 @@ export class EncryptionService {
           mimeType = 'application/pdf';
         }
   
+        console.time('AES Decryption Time');
         const decryptedBlobAES = this.decryptAndConvertToBlob(encryptedFileAES, mimeType, 'AES');
+          console.timeEnd('AES Decryption Time');
+          console.time('RC4 Decryption Time');
         const decryptedBlobRC4 = this.decryptAndConvertToBlob(encryptedFileRC4, mimeType, 'RC4');
+          console.timeEnd('RC4 Decryption Time');
+          console.time('DES Decryption Time');
         const decryptedBlobDES = this.decryptAndConvertToBlob(encryptedFileDES, mimeType, 'DES');
+        console.timeEnd('DES Decryption Time');
   
         resolve([
           URL.createObjectURL(decryptedBlobAES),
