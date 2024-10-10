@@ -22,6 +22,7 @@
         <div class="fieldsContain fieldsContainColor2">
             <div class="addTextOrDocument">
                 <div class="decryptedText">
+                    <h5 *ngIf="waitingMessage">{{waitingMessage}}</h5>
                     <h2 *ngIf="decryptedDataTextAES">Text "{{textSelected}}" AES decryption :</h2>
                     <h4 *ngIf="decryptedDataTextAES">{{decryptedDataTextAES}} </h4>
                     <h2 *ngIf="decryptedDataTextRC4">Text "{{textSelected}}" RC4 decryption :</h2>
@@ -44,7 +45,7 @@
             </div>
         </div>
         <div class="onSameLine">
-            <button (click)="navigateToHomepage()">Encrypt a new Text</button>
+            <button (click)="navigateToHomepage()">Encrypt a new Text or Document</button>
             <button (click)="navigateToLogin()">Sign Out</button>
         </div>
     </div>

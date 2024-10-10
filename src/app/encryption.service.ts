@@ -19,6 +19,7 @@ export class EncryptionService implements OnInit {
   downloadLinkDES: string | null = null;
 
   ngOnInit(): void {
+      // Get the key from Vault
       this.back.getEncryptionKey().subscribe({
         next: (data) => {
           this.key = data.encryptionKey;
@@ -28,6 +29,7 @@ export class EncryptionService implements OnInit {
         },
       });
 
+      // Get the password key from Vault (salt)
       this.back.getPasswordKey().subscribe({
         next: (data) => {
           this.secretKeyPassword = data.encryptionKey;
@@ -78,11 +80,11 @@ export class EncryptionService implements OnInit {
     }) ;
   }
 
-  // Encryption method for video
-  encryptVideo(videoTitle: string, videoBlob: Blob): Promise<string> {
+  // Encryption method for document (pdf, image, video, txt)
+  encryptDocument(docTitle: string, docBlob: Blob): Promise<string> {
     return new Promise ((resolve, reject) => {
       const fileReader = new FileReader();
-      fileReader.readAsArrayBuffer(videoBlob);
+      fileReader.readAsArrayBuffer(docBlob);
       fileReader.onload = () => {
         const arrayBuffer = fileReader.result as ArrayBuffer;
         const wordArray = CryptoJS.lib.WordArray.create(arrayBuffer);
@@ -97,7 +99,7 @@ export class EncryptionService implements OnInit {
         const encryptedDES = CryptoJS.DES.encrypt(wordArray, this.key).toString();
         console.timeEnd('DES Encryption Time');
 
-        this.back.saveFile(this.getToken(), videoTitle, encryptedAES, encryptedRC4, encryptedDES).subscribe({
+        this.back.saveFile(this.getToken(), docTitle, encryptedAES, encryptedRC4, encryptedDES).subscribe({
           next: (body) => {
             resolve(body.message) ;
           },
@@ -108,115 +110,8 @@ export class EncryptionService implements OnInit {
       };
     });
   }
-
-  // Encryption method for images
-  encryptImage(imageTitle: string, imageBlob: Blob): Promise<string> {
-    return new Promise((resolve, reject) => {
-      const fileReader = new FileReader();
-      
-      fileReader.readAsArrayBuffer(imageBlob);
-      fileReader.onload = () => {
-        const arrayBuffer = fileReader.result as ArrayBuffer;
-        const wordArray = CryptoJS.lib.WordArray.create(arrayBuffer);
   
-        console.time('AES Encryption Time');
-        const encryptedAES = CryptoJS.AES.encrypt(wordArray, this.key).toString();
-        console.timeEnd('AES Encryption Time');
-        console.time('RC4 Encryption Time');
-        const encryptedRC4 = CryptoJS.RC4.encrypt(wordArray, this.key).toString();
-        console.timeEnd('RC4 Encryption Time');
-        console.time('DES Encryption Time');
-        const encryptedDES = CryptoJS.DES.encrypt(wordArray, this.key).toString();
-        console.timeEnd('DES Encryption Time');
-  
-        this.back.saveFile(this.getToken(), imageTitle, encryptedAES, encryptedRC4, encryptedDES).subscribe({
-          next: (body) => {
-            resolve(body.message); 
-          },
-          error: (error) => {
-            reject(error);
-          }
-        });
-      };
-
-      fileReader.onerror = (error) => {
-        reject('File reading error: ' + error);
-      };
-    });
-  }
-  
-
-  // Encryption method for pdf or txt
-  encryptFile(fileTitle: string, fileBlob: Blob): Promise<string> {
-    return new Promise ((resolve, reject) => {
-      // Check the name of the file to determine its type
-      let fileName = "" ;
-      if (fileBlob instanceof File) {
-        fileName = fileBlob.name;
-      } else {
-        fileName = 'fileName';
-      }
-    
-      const fileReader = new FileReader();
-    
-      if (fileBlob.type === 'application/pdf') {
-        fileReader.readAsArrayBuffer(fileBlob);
-        fileReader.onload = () => {
-          const arrayBuffer = fileReader.result as ArrayBuffer;
-          const wordArray = CryptoJS.lib.WordArray.create(arrayBuffer);
-          
-          console.time('AES Encryption Time');
-          const encryptedAES = CryptoJS.AES.encrypt(wordArray, this.key).toString();
-          console.timeEnd('AES Encryption Time');
-          console.time('RC4 Encryption Time');
-          const encryptedRC4 = CryptoJS.RC4.encrypt(wordArray, this.key).toString();
-          console.timeEnd('RC4 Encryption Time');
-          console.time('DES Encryption Time');
-          const encryptedDES = CryptoJS.DES.encrypt(wordArray, this.key).toString();
-          console.timeEnd('DES Encryption Time');
-
-          console.log('encryption pdf : ' + encryptedAES) ;
-          this.back.saveFile(this.getToken(), fileTitle, encryptedAES, encryptedRC4, encryptedDES).subscribe({
-            next: (body) => {
-              // resolve(body.message) ;
-              resolve(encryptedAES) ;
-            },
-            error: (error) => {
-              reject(error) ;
-            }
-          });
-        };
-      } else {
-        fileReader.readAsText(fileBlob);
-        fileReader.onload = () => {
-          const fileContent = fileReader.result as string;
-
-          console.time('AES Encryption Time');
-          const encryptedAES = CryptoJS.AES.encrypt(fileContent, this.key).toString();
-          console.timeEnd('AES Encryption Time');
-          console.time('RC4 Encryption Time');
-          const encryptedRC4 = CryptoJS.RC4.encrypt(fileContent, this.key).toString();
-          console.timeEnd('RC4 Encryption Time');
-          console.time('DES Encryption Time');
-          const encryptedDES = CryptoJS.DES.encrypt(fileContent, this.key).toString();
-          console.timeEnd('DES Encryption Time');
-
-          console.log('encryption txt : ' + encryptedAES) ;
-          this.back.saveFile(this.getToken(), fileTitle, encryptedAES, encryptedRC4, encryptedDES).subscribe({
-            next: (body) => {
-              resolve(body.message) ;
-            },
-            error: (error) => {
-              reject(error) ;
-            }
-          });
-        };
-      }
-    }) ;
-  }
-
-  
-  // Decrypt a file
+  // Decrypt a file (pdf, image, video, txt)
   decryptFile(encryptedFileAES: string, encryptedFileRC4: string, encryptedFileDES: string, fileName: string, fileType: string): Promise<[string, string, string]> {
     return new Promise((resolve, reject) => {
       try {
@@ -236,13 +131,13 @@ export class EncryptionService implements OnInit {
         }
   
         console.time('AES Decryption Time');
-        const decryptedBlobAES = this.decryptAndConvertToBlob(encryptedFileAES, mimeType, 'AES');
-          console.timeEnd('AES Decryption Time');
-          console.time('RC4 Decryption Time');
-        const decryptedBlobRC4 = this.decryptAndConvertToBlob(encryptedFileRC4, mimeType, 'RC4');
-          console.timeEnd('RC4 Decryption Time');
-          console.time('DES Decryption Time');
-        const decryptedBlobDES = this.decryptAndConvertToBlob(encryptedFileDES, mimeType, 'DES');
+        const decryptedBlobAES = this.decryptAlgo(encryptedFileAES, mimeType, 'AES');
+        console.timeEnd('AES Decryption Time');
+        console.time('RC4 Decryption Time');
+        const decryptedBlobRC4 = this.decryptAlgo(encryptedFileRC4, mimeType, 'RC4');
+        console.timeEnd('RC4 Decryption Time');
+        console.time('DES Decryption Time');
+        const decryptedBlobDES = this.decryptAlgo(encryptedFileDES, mimeType, 'DES');
         console.timeEnd('DES Decryption Time');
   
         resolve([
@@ -256,7 +151,7 @@ export class EncryptionService implements OnInit {
     });
   }
   
-  decryptAndConvertToBlob(encryptedData: string, mimeType: string, algorithm: string): Blob {
+  decryptAlgo(encryptedData: string, mimeType: string, algorithm: string): Blob {
     var decryptedBytes: any;
     switch (algorithm) {
       case 'AES':
@@ -269,21 +164,16 @@ export class EncryptionService implements OnInit {
         decryptedBytes = CryptoJS.DES.decrypt(encryptedData, this.key);
         break;
       default:
-        throw new Error('Unsupported algorithm');
+        break;
     }
   
     const decryptedWordArray = CryptoJS.lib.WordArray.create(decryptedBytes.words);
-    const decryptedArrayBuffer = this.wordArrayToArrayBuffer(decryptedWordArray);
-    return new Blob([decryptedArrayBuffer], { type: mimeType });
-  }
-  
-  wordArrayToArrayBuffer(wordArray: CryptoJS.lib.WordArray): ArrayBuffer {
-    const arrayBuffer = new ArrayBuffer(wordArray.sigBytes);
+    const arrayBuffer = new ArrayBuffer(decryptedWordArray.sigBytes);
     const uint8Array = new Uint8Array(arrayBuffer);
-    for (let i = 0; i < wordArray.sigBytes; i++) {
-      uint8Array[i] = (wordArray.words[i >>> 2] >>> (24 - (i % 4) * 8)) & 0xff;
+    for (let i = 0; i < decryptedWordArray.sigBytes; i++) {
+      uint8Array[i] = (decryptedWordArray.words[i >>> 2] >>> (24 - (i % 4) * 8)) & 0xff;
     }
-    return arrayBuffer;
+    return new Blob([arrayBuffer], { type: mimeType });
   }
   
 }

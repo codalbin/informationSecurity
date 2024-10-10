@@ -24,6 +24,8 @@ export class AllDataComponent implements OnInit {
   allFiles: any ;
   textSelected: string = "" ;
 
+  waitingMessage: string = "" ;
+
   decryptedDataTextAES: string = "";
   decryptedDataTextRC4: string = "";
   decryptedDataTextDES: string = "";
@@ -76,6 +78,10 @@ export class AllDataComponent implements OnInit {
   }
 
   onTextClick(name: string): void {
+    this.waitingMessage = "Your text is being decrypted..." ;
+    this.decryptedDataTextAES = "" ;
+    this.decryptedDataTextRC4 = "" ;
+    this.decryptedDataTextDES = "" ;
     this.decryptedDataFileAES = "" ;
     this.decryptedDataFileRC4 = "" ;
     this.decryptedDataFileDES = "" ;
@@ -88,6 +94,7 @@ export class AllDataComponent implements OnInit {
           this.decryptedDataTextAES = response[0] ;
           this.decryptedDataTextRC4 = response[1] ;
           this.decryptedDataTextDES = response[2] ;
+          this.waitingMessage = "" ;
         }) ;
       } else {
         console.log(response.message)
@@ -96,9 +103,13 @@ export class AllDataComponent implements OnInit {
   }
 
   onFileClick(name: string): void {
+    this.waitingMessage = "Your document is being decrypted..." ;
     this.decryptedDataTextAES = "" ;
     this.decryptedDataTextRC4 = "" ;
     this.decryptedDataTextDES = "" ;
+    this.decryptedDataFileAES = "" ;
+    this.decryptedDataFileRC4 = "" ;
+    this.decryptedDataFileDES = "" ;
     console.log('File name :', name);
     this.back.getOneFile(this.getToken(), name).subscribe(response => {
       // console.log(response.file_data_AES, response.file_data_RC4, response.file_data_DES);
@@ -114,6 +125,7 @@ export class AllDataComponent implements OnInit {
             this.decryptedDataFileAES = response[0] ;
             this.decryptedDataFileRC4 = response[1] ;
             this.decryptedDataFileDES = response[2] ;
+            this.waitingMessage = "" ;
           }) ;
         } else if (name.endsWith('.pdf')){
           console.log('decryption start')
@@ -122,6 +134,7 @@ export class AllDataComponent implements OnInit {
             this.decryptedDataFileAES = response[0] ;
             this.decryptedDataFileRC4 = response[1] ;
             this.decryptedDataFileDES = response[2] ;
+            this.waitingMessage = "" ;
           }) ;
         } else if (name.endsWith('.txt')){
           console.log('decryption start')
@@ -130,6 +143,7 @@ export class AllDataComponent implements OnInit {
             this.decryptedDataFileAES = response[0] ;
             this.decryptedDataFileRC4 = response[1] ;
             this.decryptedDataFileDES = response[2] ;
+            this.waitingMessage = "" ;
           }) ;
         } else if (name.endsWith('.jpeg')){
           console.log('decryption start')
@@ -138,6 +152,7 @@ export class AllDataComponent implements OnInit {
             this.decryptedDataFileAES = response[0] ;
             this.decryptedDataFileRC4 = response[1] ;
             this.decryptedDataFileDES = response[2] ;
+            this.waitingMessage = "" ;
           }) ;
         } else if (name.endsWith('.jpg')){
           console.log('decryption start')
@@ -146,6 +161,7 @@ export class AllDataComponent implements OnInit {
             this.decryptedDataFileAES = response[0] ;
             this.decryptedDataFileRC4 = response[1] ;
             this.decryptedDataFileDES = response[2] ;
+            this.waitingMessage = "" ;
           }) ;
         } else if (name.endsWith('.png')){
           console.log('decryption start')
@@ -154,6 +170,7 @@ export class AllDataComponent implements OnInit {
             this.decryptedDataFileAES = response[0] ;
             this.decryptedDataFileRC4 = response[1] ;
             this.decryptedDataFileDES = response[2] ;
+            this.waitingMessage = "" ;
           }) ;
         } 
       } else {

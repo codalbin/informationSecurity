@@ -12,6 +12,8 @@
                 <h1>Upload a Document</h1>
                 <p>Autorised types : .mp4, .txt, .pdf, .png, .jpeg, .jpg</p>
                 <input type="file" (change)="onFileSelected($event)" accept="video/*, .txt, .pdf, .png, .jpeg, .jpg" />
+                <h3 *ngIf="errorMessageFile"> {{ errorMessageFile }} </h3>
+                <h5 *ngIf="waitingMessage">{{waitingMessage}}</h5>
             </div>
             <div class="onSameLine">
                 <button (click)="navigateToVisualiseData()">Access encrypted Texts & Documents</button>
