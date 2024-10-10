@@ -1,9 +1,22 @@
 <div class="page">
     <div class="fields">
         <div class="fieldsContain">
-            <p>This is our homepage</p>
-            <p>To go back to login page, click here</p>
-            <button (click)="signOut()">Sign Out</button>
+            <div class="addTextOrDocument">
+                <h1>Encrypt a Text</h1>
+                <input type="text" [(ngModel)]="textName" placeholder="Title of your text">
+                <textarea [(ngModel)]="textTapped" placeholder="Enter your text" rows="8" cols="50"></textarea>
+                <h3 *ngIf="errorMessageText"> {{ errorMessageText }} </h3>
+                <button (click)="onSelectedDataText()">Encrypt Text</button>
+            </div>
+            <div class="addTextOrDocument">
+                <h1>Upload a Document</h1>
+                <p>Autorised types : .mp4, .txt, .pdf, .png, .jpeg, .jpg</p>
+                <input type="file" (change)="onFileSelected($event)" accept="video/*, .txt, .pdf, .png, .jpeg, .jpg" />
+            </div>
+            <div class="onSameLine">
+                <button (click)="navigateToVisualiseData()">Access encrypted Texts & Documents</button>
+                <button (click)="signOut()">Sign Out</button>
+            </div>
         </div>
     </div>
 </div>

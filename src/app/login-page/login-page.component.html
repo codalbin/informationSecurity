@@ -1,10 +1,21 @@
 <div class="page">
     <div class="fields">
         <div class="fieldsContain">
-            <p>WELCOME <br> To our Information System project</p>
-            <input type="text" class="field" [(ngModel)]="loginUser" placeholder="User" data-lang-key="userPlaceholder">
-            <input type="password" class="field" [(ngModel)]="passwordUser" (keydown.enter)="login()" placeholder="Password" data-lang-key="password">
-            <button (click)="login()">Sign In</button>
+            <div class="text">
+                <h1>WELCOME</h1>
+                <h2>Please Connect to your Account</h2>
+            </div>
+            <input type="text" class="field" [(ngModel)]="loginUser" placeholder="User">
+            <input type="password" class="field" [(ngModel)]="passwordUser" (keydown.enter)="login()" placeholder="Password">
+            <h3 *ngIf="errorMessage"> {{ errorMessage }} </h3>
+            <div class="onSameLine">
+                <button (click)="login()">Log In</button>
+                <button (click)="navigateToSignIn()">Sign In</button>    
+            </div>
+        </div>
+        <div class="bottomFields">
+            <p>Information Security Project</p>
+            <p>BELFODIL Ines - HAUTBOIS Guewen - POISSE-JOBERT Maxence - TARDIVEL Albin</p>
         </div>
     </div>
 </div>

@@ -1,0 +1,13 @@
+.page {
+    flex-direction: column; 
+    justify-content: center;
+}
+
+.fields {
+    background: var(--myGreen);
+    max-width: 60vw;
+}
+
+.fieldsContain {
+    max-height: calc(90vh - 80px);
+}

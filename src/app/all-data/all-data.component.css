@@ -1,0 +1,38 @@
+.page {
+    justify-content: space-around;
+    max-width: 100%;
+    flex-direction: row;
+    padding: 0 2% ;
+}
+
+.fields {
+    max-width: 48%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.fieldsColor1 {
+    background: var(--myGreen);
+}
+.fieldsColor2 {
+    background: var(--myBlue2);
+}
+
+.fieldsContain {
+    margin: 10px 0 ;
+    max-height: calc(90vh - 180px);
+    background-color: var(--myGreen2);
+    padding-left: 10px;
+}
+
+.fieldsContainColor1 {
+    background-color: var(--myGreen2);
+}
+.fieldsContainColor2 {
+    background-color: var(--myBlue3);
+}
+
+.fields h4 {
+    margin-bottom: 8px;
+}
