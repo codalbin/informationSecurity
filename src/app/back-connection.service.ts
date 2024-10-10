@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 export class BackConnectionService {
 
   private baseUrl = 'http://localhost:3000/api';
+  private keyUrl = 'http://localhost:3000';
 
   constructor(private http: HttpClient) {}
 
@@ -81,5 +82,15 @@ export class BackConnectionService {
   getAllTexts(token: string): Observable<any> {
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
     return this.http.get(`${this.baseUrl}/texts`, { headers });
+  }
+
+  // Get the key
+  getEncryptionKey(): Observable<any> {
+    return this.http.get<any>(this.keyUrl + "/get-encryption-key");
+  }
+
+  // Get the key for password
+  getPasswordKey(): Observable<any> {
+    return this.http.get<any>(this.keyUrl + "/get-key-password");
   }
 }
