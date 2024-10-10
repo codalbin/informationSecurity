@@ -8,7 +8,7 @@
             <input type="text" class="field" [(ngModel)]="loginUser" placeholder="User">
             <input type="password" class="field" [(ngModel)]="passwordUser" placeholder="Password">
             <input type="password" class="field" [(ngModel)]="passwordUserConfirmation" (keydown.enter)="signIn()" placeholder="Confirm Password">
-            <h1 *ngIf="errorMessage"> {{ errorMessage }} </h1>
+            <h3 *ngIf="errorMessage"> {{ errorMessage }} </h3>
             <div class="onSameLine">
                 <button (click)="signIn()">Sign In</button>
                 <button (click)="navigateToLogin()">I have an account</button>    
