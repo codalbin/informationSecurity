@@ -12,8 +12,6 @@ export class EncryptionService implements OnInit {
     private back: BackConnectionService
   ) { }
 
-  // key = 'infoSecurity24';
-  // secretKeyPassword = 'infoSec12479';
   key: string = '';
   secretKeyPassword: string = '';
   downloadLinkAES: string | null = null;
