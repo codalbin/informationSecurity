@@ -55,7 +55,7 @@ export class HomepageComponent {
         }, 3000);
       } else if (this.textName != "" && this.textTapped != "") {
         this.encryptionService.encryptText(this.textName, this.textTapped).then((response) => {
-          console.log(response) ;
+          // console.log(response) ;
         });
         this.textName = "" ;
         this.textTapped = "" ;
@@ -85,7 +85,7 @@ export class HomepageComponent {
         } else {
           this.waitingMessage = "Your document is being encrypted and stored..."
           this.encryptionService.encryptDocument(file.name, file).then((response) => {
-            console.log(response);
+            // console.log(response);
             this.waitingMessage = "Document encrypted and stored !" ;
           });
         }

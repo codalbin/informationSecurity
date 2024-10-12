@@ -1,3 +1,14 @@
+# How to run the project
+
+Install npm : 'npm install'
+
+Launch the application : 'npm run start'
+
+You can access the application on `http://localhost:4200/`
+
+
+
+
 # InformationSecurity
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.1.

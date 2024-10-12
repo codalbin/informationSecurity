@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { LoginPageComponent } from './login-page/login-page.component';
+import { EncryptionService } from './encryption.service';
 
 @Component({
   selector: 'app-root',
@@ -12,6 +13,14 @@ import { LoginPageComponent } from './login-page/login-page.component';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'informationSecurity';
+
+  constructor(
+    private encryption: EncryptionService
+  ) {}
+
+  ngOnInit(): void {
+    this.encryption.getKeys() ;
+  }
 }
