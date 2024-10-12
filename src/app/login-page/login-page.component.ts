@@ -27,8 +27,6 @@ export class LoginPageComponent implements OnInit {
   ngOnInit(): void {
     // localStorage.removeItem('token') ;
     localStorage.clear() ;
-
-    this.encryption.ngOnInit() ;
   }
 
   login() {

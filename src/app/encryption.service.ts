@@ -1,12 +1,11 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import * as CryptoJS from 'crypto-js';
 import { BackConnectionService } from './back-connection.service';
-import { Buffer } from 'buffer';
 
 @Injectable({
   providedIn: 'root'
 })
-export class EncryptionService implements OnInit {
+export class EncryptionService {
 
   constructor(
     private back: BackConnectionService
@@ -18,7 +17,7 @@ export class EncryptionService implements OnInit {
   downloadLinkRC4: string | null = null;
   downloadLinkDES: string | null = null;
 
-  ngOnInit(): void {
+  getKeys(): void {
       // Get the key from Vault
       this.back.getEncryptionKey().subscribe({
         next: (data) => {
@@ -35,7 +34,7 @@ export class EncryptionService implements OnInit {
           this.secretKeyPassword = data.encryptionKey;
         },
         error: (err) => {
-          console.error('Error retrieving encryption key:', err);
+          console.error('Error retrieving encryption key for password :', err);
         },
       });
   }
