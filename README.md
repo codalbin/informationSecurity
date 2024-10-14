@@ -1,11 +1,10 @@
 # How to run the project
 
-Install npm : 'npm install'
+Install npm : `npm install`
 
-Launch the application : 'npm run start'
+Launch the application : `npm run start`
 
 You can access the application on `http://localhost:4200/`
-
 
 
 

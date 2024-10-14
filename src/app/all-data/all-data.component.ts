@@ -176,6 +176,24 @@ export class AllDataComponent implements OnInit {
             this.decryptedDataFileDES = response[2] ;
             this.waitingMessage = "" ;
           }) ;
+        } else if (name.endsWith('.xls')){
+          // console.log('decryption start')
+          // console.log(aesData)
+          this.encryptionService.decryptFile(aesData, rc4Data, desData, name, 'xls').then((response) => {
+            this.decryptedDataFileAES = response[0] ;
+            this.decryptedDataFileRC4 = response[1] ;
+            this.decryptedDataFileDES = response[2] ;
+            this.waitingMessage = "" ;
+          }) ;
+        } else if (name.endsWith('.xlsx')){
+          // console.log('decryption start')
+          // console.log(aesData)
+          this.encryptionService.decryptFile(aesData, rc4Data, desData, name, 'xlsx').then((response) => {
+            this.decryptedDataFileAES = response[0] ;
+            this.decryptedDataFileRC4 = response[1] ;
+            this.decryptedDataFileDES = response[2] ;
+            this.waitingMessage = "" ;
+          }) ;
         } 
       } else {
         console.log(response.message)
