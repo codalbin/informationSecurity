@@ -127,6 +127,8 @@ export class EncryptionService {
           mimeType = 'video/mp4';
         } else if (fileType === 'pdf') {
           mimeType = 'application/pdf';
+        } else if (fileType === 'xls' || fileType === 'xlsx') {
+          mimeType = 'application/vnd.ms-excel';
         }
   
         console.time('AES Decryption Time');
