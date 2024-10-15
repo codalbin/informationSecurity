@@ -21,6 +21,6 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.encryption.getKeys() ;
+    // this.encryption.getKeys() ;
   }
 }

@@ -11,8 +11,8 @@ export class EncryptionService {
     private back: BackConnectionService
   ) { }
 
-  key: string = '';
-  secretKeyPassword: string = '';
+  key: string = 'infoSecurity24';
+  secretKeyPassword: string = 'infoSec12479';
   downloadLinkAES: string | null = null;
   downloadLinkRC4: string | null = null;
   downloadLinkDES: string | null = null;
