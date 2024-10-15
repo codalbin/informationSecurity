@@ -39,6 +39,10 @@ export class HomepageComponent {
     this.router.navigate(['visualiseData']);
   }
 
+  navigateToShareData() {
+    this.router.navigate(['shareData']);
+  }
+
   // Get the token to identify the user connected
   getToken(): string {
     return localStorage.getItem('token') || "" ;

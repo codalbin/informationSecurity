@@ -1,0 +1,16 @@
+<div class="page">
+    <div class="fields">
+        <div class="fieldsContain">
+            <div class="text">
+                <h1>SHARE DATA WITH YOUR FRIENDS</h1>
+                <h2>Enter your friend's username you want to connect with</h2>
+            </div>
+            <input type="text" class="field" [(ngModel)]="friendUsername" placeholder="Your friend's username">
+            <h3 *ngIf="errorMessage"> {{ errorMessage }} </h3>
+            <div class="onSameLine">
+                <button (click)="askAccessToUser()">Ask to have access to its files</button>
+                <button (click)="navigateToHomepage()">Go back homepage</button>
+            </div>
+        </div>
+    </div>
+</div>

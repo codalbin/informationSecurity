@@ -1,0 +1,21 @@
+.page {
+    flex-direction: column; 
+    justify-content: center;
+}
+
+.fields {
+    background: var(--myGreen);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 60vw;
+}
+
+.fieldsContain {
+    max-height: calc(90vh - 80px);
+}
+
+.onSameLine {
+    margin-top: 15px;
+}
