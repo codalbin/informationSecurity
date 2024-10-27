@@ -1,16 +1,71 @@
+<header>
+    <div class="title">
+        <h1>SHARE YOUR DATA</h1>
+    </div>
+    <div class="head-grid">
+        <div class="button-container">
+            <button (click)="navigateToHomepage()">ADD DOCUMENTS</button>
+            <button (click)="navigateToVisualiseData()">YOUR DOCUMENTS</button>
+            <button (click)="navigateToVisualizeSharedData()">DOCUMENTS SHARED WITH YOU</button>
+            <button (click)="navigateToShareData()">SHARE YOUR DATA</button>
+            <button (click)="navigateToLogin()">Sign Out</button>
+        </div>
+    </div>
+</header>
+
 <div class="page">
-    <div class="fields">
-        <div class="fieldsContain">
+    <div class="fields fieldsColor1">
+        <div class="fieldsContain fieldsContainColor1">
             <div class="text">
                 <h1>SHARE DATA WITH YOUR FRIENDS</h1>
                 <h2>Enter your friend's username you want to connect with</h2>
             </div>
-            <input type="text" class="field" [(ngModel)]="friendUsername" placeholder="Your friend's username">
+            <input type="text" class="field" [(ngModel)]="friendUsername" (keydown.enter)="askAccessToUser()" placeholder="Your friend's username">
             <h3 *ngIf="errorMessage"> {{ errorMessage }} </h3>
-            <div class="onSameLine">
-                <button (click)="askAccessToUser()">Ask to have access to its files</button>
-                <button (click)="navigateToHomepage()">Go back homepage</button>
-            </div>
+            <h5 *ngIf="okMessage"> {{ okMessage }} </h5>
+            <button (click)="askAccessToUser()">Ask user to have access to its files</button>
         </div>
+    </div>
+    <div class="fields fieldsColor2">
+        <h1>FRIENDS REQUESTS YOU SENT</h1>
+        <div class="fieldsContain fieldsContainColor2">
+            <div class="addTextOrDocument">
+                <div class="listOfTextsOrDocuments">
+                    <div *ngIf="allNotifications.sent.length">
+                        <div *ngFor="let sent of allNotifications.sent">
+                            <p>- - - - - - - - - - - - - - - - - - -</p>
+                            <h2>{{ sent }}</h2>
+                        </div>
+                        <p>- - - - - - - - - - - - - - - - - - -</p>
+                    </div>
+                        
+                    <div *ngIf="!allNotifications.sent.length">
+                        <p>No Notification</p>
+                    </div>     
+                </div>
+            </div>
+        </div>   
+    </div>
+    <div class="fields fieldsColor2">
+        <h1>FRIENDS WHO WANT TO CONNECT WITH YOU</h1>
+        <div class="fieldsContain fieldsContainColor2">
+            <div class="addTextOrDocument">
+                <div class="listOfTextsOrDocuments">
+                    <div *ngIf="allNotifications.received.length">
+                        <div *ngFor="let received of allNotifications.received">
+                            <p>- - - - - - - - - - - - - - - - - - -</p>
+                            <h2>{{ received }}</h2>
+                            <button (click)="acceptNotification(received)">Accept</button>
+                            <button (click)="deleteNotification(received)">Delete</button>
+                        </div>
+                        <p>- - - - - - - - - - - - - - - - - - -</p>
+                    </div>
+                        
+                    <div *ngIf="!allNotifications.received.length">
+                        <p>No Notification</p>
+                    </div>     
+                </div>
+            </div>
+        </div> 
     </div>
 </div>

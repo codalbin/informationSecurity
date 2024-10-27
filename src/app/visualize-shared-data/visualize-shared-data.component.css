@@ -15,6 +15,11 @@
     margin-right: 5px;
 }
 
+.fields button {
+    margin-left: 5px ;
+    margin-bottom: 5px ;
+}
+
 .fieldsColor1 {
     background: var(--myGreen);
 }
@@ -27,16 +32,15 @@
     max-height: calc(90vh - 180px);
     background-color: var(--myGreen2);
     padding-left: 10px;
-    background-color: var(--myBlue3);
 }
 
 .fieldsContainColor1 {
-    background-color: var(--myGreen);
+    background-color: var(--myGreen2);
 }
 .fieldsContainColor2 {
     background-color: var(--myBlue3);
 }
 
-.onSameLine {
-    margin-top: 15px;
+.fields h4 {
+    margin-bottom: 8px;
 }

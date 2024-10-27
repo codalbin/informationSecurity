@@ -13,11 +13,42 @@
     --font1: "Jost", sans-serif;
 }
 
+header {
+    padding: 0;
+    margin: 0;
+    position:sticky;
+    z-index: 500;
+    top: 0;
+    background-color: var(--myBlue3);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow-x: auto;
+}
+
+.title {
+    display:flex;
+    justify-content: center;
+    height: 40px;
+}
+
+.head-grid {
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.button-container {
+    display: flex;
+    visibility: visible;
+}
+
 .page {
     display: flex; 
     position: relative;
     align-items: center;  
-    height: 100vh;
     background-color: var(--myGrey);
 }
 
@@ -59,49 +90,49 @@
     margin-bottom: 15px;
 }
 
-.fields h1 {
+h1 {
     font-size: 30px;
     font-family: var(--font1);
     text-align: center;
     color: var(--myWhite);
     font-weight: 500;
 }
-.fields h2 {
+h2 {
     font-size: 20px;
     font-family: var(--font1);
     text-align: center;
     color: var(--myWhite);
     font-weight: 400;
 }
-.fields h3 {
+h3 {
     font-size: 12px;
     font-family: var(--font1);
     text-align: center;
     color: var(--myRed);
     font-weight: 500;
 }
-.fields h4 {
+h4 {
     font-size: 16px;
     font-family: var(--font1);
     text-align: center;
     color: var(--myGrey);
     font-weight: 500;
 }
-.fields h5 {
+h5 {
     font-size: 12px;
     font-family: var(--font1);
     text-align: center;
     color: var(--myBlue);
     font-weight: 500;
 }
-.fields p {
+p {
     font-size: 12px;
     font-family: var(--font1);
     text-align: center;
     color: var(--myWhite);
     font-style: italic;
 }
-.fields a {
+a {
     color: var(--myBlue);
 }
 
@@ -118,7 +149,7 @@
     font-family: var(--font1);
 }
 
-.fields button {
+button {
     margin-top: 5px;
     margin-right: 5px;
     border-radius: 20px;
@@ -129,7 +160,7 @@
     font-size: 12px;
 }
 
-.fields button:hover {
+button:hover {
     background-color: var(--myBlack);
     color: var(--myWhite);
     cursor: pointer;
@@ -184,37 +215,4 @@ textarea:focus{
 .downloadLink {
     margin-top: 12px;
     text-align: center;
-}
-
-/* For mobile screens */
-@media only screen and (max-width: 768px) {
-
-    .fields {
-        padding: 20px 10px;
-        max-width: 90vw;
-        min-width: auto;
-    }
-
-    .fieldsContain {
-        max-height: calc(90vh - 20px);
-    }
-
-    .fields p {
-        font-size: 20px;
-    }
-
-    .fields input {
-        font-size: 10px;
-    }
-
-    .fields button {
-        margin-right: 0;
-        margin-bottom: 10px;
-        padding: 6px 12px;
-        font-size: 10px;
-    }
-
-    .field {
-        width: 80vw;
-    }
 }

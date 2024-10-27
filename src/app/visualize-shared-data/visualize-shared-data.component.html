@@ -1,6 +1,6 @@
 <header>
     <div class="title">
-        <h1>YOUR DOCUMENTS</h1>
+        <h1>DATA SHARED WITH YOU</h1>
     </div>
     <div class="head-grid">
         <div class="button-container">
@@ -14,23 +14,6 @@
 </header>
 
 <div class="page">
-    <div class="fields fieldsColor1">
-        <h1>Encrypted Texts</h1>
-        <p>Click on a text to decrypt it</p>
-        <div class="fieldsContain fieldsContainColor1">
-            <div class="addTextOrDocument">
-                <div class="listOfTextsOrDocuments">
-                    <div *ngFor="let text of allTexts">
-                        <div (click)="onTextClick(text)">
-                            <p>- - - - - - - - - - - - - - - - - - -</p>
-                            <h2>{{ text || 'No text' }}</h2>
-                        </div>
-                    </div>
-                    <p>- - - - - - - - - - - - - - - - - - -</p>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="fields fieldsColor2">
         <h1>Decryption</h1>
         <p>Click on a text or a document to decrypt it</p>
@@ -38,12 +21,6 @@
             <div class="addTextOrDocument">
                 <div class="decryptedText">
                     <h5 *ngIf="waitingMessage">{{waitingMessage}}</h5>
-                    <h2 *ngIf="decryptedDataTextAES">Text "{{textSelected}}" AES decryption :</h2>
-                    <h4 *ngIf="decryptedDataTextAES">{{decryptedDataTextAES}} </h4>
-                    <h2 *ngIf="decryptedDataTextRC4">Text "{{textSelected}}" RC4 decryption :</h2>
-                    <h4 *ngIf="decryptedDataTextRC4">{{decryptedDataTextRC4}} </h4>
-                    <h2 *ngIf="decryptedDataTextDES">Text "{{textSelected}}" DES decryption :</h2>
-                    <h4 *ngIf="decryptedDataTextDES">{{decryptedDataTextDES}} </h4>
                     <div *ngIf="decryptedDataFileAES" class="downloadLink">
                         <h4>Decrypted File AES :</h4>
                         <a [href]="decryptedDataFileAES" [download]="fileName">AES_{{fileName}}</a>
@@ -75,6 +52,10 @@
                 </div>
                 <p>- - - - - - - - - - - - - - - - - - -</p>
             </div>
+        </div>
+        <div *ngIf="showInputKey" class="onSameLine">
+            <input type="text" class="field" [(ngModel)]="keyToDecrypt" (keydown.enter)="onKeyInputOk()" placeholder="Your Key">
+            <button (click)="onKeyInputOk()">Decrypt</button>
         </div>
     </div>
 </div>

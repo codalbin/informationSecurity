@@ -84,6 +84,46 @@ export class BackConnectionService {
     return this.http.get(`${this.baseUrl}/texts`, { headers });
   }
 
+  // Add a notification
+  addNotification(username: string, token: string): Observable<any> {
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}`});
+    const body = { username };
+    return this.http.post(`${this.baseUrl}/notifications/add`, body, { headers });
+  }
+
+  // Get all notifications from a user
+  getNotifications(token: string): Observable<any> {
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
+    return this.http.get(`${this.baseUrl}/notifications`, { headers });
+  }
+
+  // Delete a given notification
+  deleteNotification(username: string, token: string): Observable<any> {
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
+    const body = { username };
+    return this.http.delete(`${this.baseUrl}/notifications/delete`, { headers, body: body });
+  }
+
+  // Accept sharing documents
+  acceptSharing(username: string, token: string): Observable<any> {
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
+    return this.http.get(`${this.baseUrl}/notifications/accept/${username}`, { headers });
+  }
+
+  // Get all the files that have been shared with me
+  getSharedFiles(token: string): Observable<any> {
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
+    return this.http.get(`${this.baseUrl}/shared_files`, { headers });
+  }
+
+  // Get a specific shared file
+  getSharedFile(fileName: string, encrypted_key: string, token: string): Observable<any> {
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
+    const body = { encrypted_key };
+    return this.http.post(`${this.baseUrl}/shared_files/${fileName}`, body, { headers });
+  }
+
+
   // Get the key
   getEncryptionKey(): Observable<any> {
     return this.http.get<any>(this.keyUrl + "/get-encryption-key");

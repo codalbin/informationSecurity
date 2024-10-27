@@ -1,3 +1,18 @@
+<header>
+    <div class="title">
+        <h1>ADD DOCUMENTS</h1>
+    </div>
+    <div class="head-grid">
+        <div class="button-container">
+            <button (click)="navigateToHomepage()">ADD DOCUMENTS</button>
+            <button (click)="navigateToVisualiseData()">YOUR DOCUMENTS</button>
+            <button (click)="navigateToVisualizeSharedData()">DOCUMENTS SHARED WITH YOU</button>
+            <button (click)="navigateToShareData()">SHARE YOUR DATA</button>
+            <button (click)="navigateToLogin()">Sign Out</button>
+        </div>
+    </div>
+</header>
+
 <div class="page">
     <div class="fields">
         <div class="fieldsContain">
@@ -14,11 +29,6 @@
                 <input type="file" (change)="onFileSelected($event)" accept="video/*, .txt, .pdf, .png, .jpeg, .jpg, .xls, .xlsx" />
                 <h3 *ngIf="errorMessageFile"> {{ errorMessageFile }} </h3>
                 <h5 *ngIf="waitingMessage">{{waitingMessage}}</h5>
-            </div>
-            <div class="onSameLine">
-                <button (click)="navigateToVisualiseData()">Access encrypted Texts & Documents</button>
-                <button (click)="navigateToShareData()">Share Data</button>
-                <button (click)="signOut()">Sign Out</button>
             </div>
         </div>
     </div>

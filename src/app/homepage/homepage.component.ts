@@ -35,12 +35,24 @@ export class HomepageComponent {
     this.router.navigate(['login-page']);
   }
 
+  navigateToShareData() {
+    this.router.navigate(['shareData']);
+  }
+
+  navigateToLogin() {
+    this.router.navigate(['login-page']);
+  }
+
+  navigateToHomepage() {
+    this.router.navigate(['homepage']);
+  }
+
   navigateToVisualiseData() {
     this.router.navigate(['visualiseData']);
   }
 
-  navigateToShareData() {
-    this.router.navigate(['shareData']);
+  navigateToVisualizeSharedData() {
+    this.router.navigate(['visualizeSharedData']);
   }
 
   // Get the token to identify the user connected

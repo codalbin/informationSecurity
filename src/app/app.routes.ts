@@ -4,6 +4,7 @@ import { SignInComponent } from './sign-in/sign-in.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { AllDataComponent } from './all-data/all-data.component';
 import { ShareDataComponent } from './share-data/share-data.component';
+import { VisualizeSharedDataComponent } from './visualize-shared-data/visualize-shared-data.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'login-page', pathMatch: 'full'},
@@ -12,4 +13,5 @@ export const routes: Routes = [
     { path: 'homepage', component: HomepageComponent },
     { path: 'visualiseData', component: AllDataComponent },
     { path: 'shareData', component: ShareDataComponent },
+    { path: 'visualizeSharedData', component: VisualizeSharedDataComponent },
 ];
