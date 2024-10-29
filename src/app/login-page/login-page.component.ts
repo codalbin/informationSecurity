@@ -36,6 +36,7 @@ export class LoginPageComponent implements OnInit {
             this.navigateToHomepage();
             // Store the token in localStorage 
             localStorage.setItem('token', body.token)
+            localStorage.setItem('user', this.loginUser)
         },
         error: (error) => {
           if (error.status === 0 || error.status === 500) {

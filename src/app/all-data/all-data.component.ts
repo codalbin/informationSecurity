@@ -20,6 +20,8 @@ export class AllDataComponent implements OnInit {
     private back: BackConnectionService
   ) {}
 
+  currentUser: string = '' ;
+
   allTexts: any ;
   allFiles: any ;
   textSelected: string = "" ;
@@ -39,14 +41,30 @@ export class AllDataComponent implements OnInit {
   ngOnInit(): void {
     this.getAllTexts() ;
     this.getAllFiles();
+
+    // Get the user name 
+    var user = localStorage.getItem('user')
+    this.currentUser = user ? user : "noUser" ;
+  }
+
+  navigateToShareData() {
+    this.router.navigate(['shareData']);
+  }
+
+  navigateToLogin() {
+    this.router.navigate(['login-page']);
   }
 
   navigateToHomepage() {
     this.router.navigate(['homepage']);
   }
 
-  navigateToLogin() {
-    this.router.navigate(['login-page']);
+  navigateToVisualiseData() {
+    this.router.navigate(['visualiseData']);
+  }
+
+  navigateToVisualizeSharedData() {
+    this.router.navigate(['visualizeSharedData']);
   }
 
   // Get the token to identify the user connected

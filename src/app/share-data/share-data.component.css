@@ -27,15 +27,16 @@
     max-height: calc(90vh - 180px);
     background-color: var(--myGreen2);
     padding-left: 10px;
+    background-color: var(--myBlue3);
 }
 
 .fieldsContainColor1 {
-    background-color: var(--myGreen2);
+    background-color: var(--myGreen);
 }
 .fieldsContainColor2 {
     background-color: var(--myBlue3);
 }
 
-.fields h4 {
-    margin-bottom: 8px;
+.onSameLine {
+    margin-top: 15px;
 }

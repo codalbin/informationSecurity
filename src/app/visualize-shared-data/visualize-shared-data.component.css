@@ -15,6 +15,11 @@
     margin-right: 5px;
 }
 
+.fields button {
+    margin-left: 5px ;
+    margin-bottom: 5px ;
+}
+
 .fieldsColor1 {
     background: var(--myGreen);
 }
