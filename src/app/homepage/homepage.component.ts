@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { EncryptionService } from '../encryption.service';
 import { FormsModule } from '@angular/forms';
@@ -12,13 +12,15 @@ import { BackConnectionService } from '../back-connection.service';
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.css', '../app.component.css']
 })
-export class HomepageComponent {
+export class HomepageComponent implements OnInit {
 
   constructor(
     private router: Router,
     private encryptionService: EncryptionService,
     private back: BackConnectionService
   ) {}
+
+  currentUser: string = '' ;
 
   textName: string = "" ;
   textTapped: string = "" ;
@@ -30,6 +32,12 @@ export class HomepageComponent {
   encryptedDataTextAES: string = "";
   encryptedDataTextRC4: string = "";
   encryptedDataTextDES: string = "";
+
+  ngOnInit(): void {
+      // Get the user name 
+    var user = localStorage.getItem('user')
+    this.currentUser = user ? user : "noUser" ;
+  }
 
   signOut() {
     this.router.navigate(['login-page']);

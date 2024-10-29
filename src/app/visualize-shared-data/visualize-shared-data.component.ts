@@ -20,6 +20,8 @@ export class VisualizeSharedDataComponent implements OnInit {
     private back: BackConnectionService
   ) {}
 
+  currentUser: string = '' ;
+
   allTexts: any ;
   allFiles: any ;
   textSelected: string = "" ;
@@ -38,6 +40,10 @@ export class VisualizeSharedDataComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllFiles();
+
+    // Get the user name 
+    var user = localStorage.getItem('user')
+    this.currentUser = user ? user : "noUser" ;
   }
 
   navigateToShareData() {
@@ -87,93 +93,98 @@ export class VisualizeSharedDataComponent implements OnInit {
     this.decryptedDataFileRC4 = "" ;
     this.decryptedDataFileDES = "" ;
     // console.log('File name :', name);
-    this.back.getSharedFile(this.fileToDecrypt, this.keyToDecrypt, this.getToken()).subscribe(response => {
-      // console.log(response.file_data_AES, response.file_data_RC4, response.file_data_DES);
-      console.log(response.file_data_AES) ;
-      console.log('Encryption length AES : ' + response.file_data_AES.length) ;
-      console.log('Encryption length RC4 : ' + response.file_data_RC4.length) ;
-      console.log('Encryption length DES : ' + response.file_data_DES.length) ;
+    this.back.getSharedFile(this.fileToDecrypt, this.keyToDecrypt, this.getToken()).subscribe({
+      next: (response) => {
+        // console.log(response.file_data_AES, response.file_data_RC4, response.file_data_DES);
+        console.log(response.file_data_AES) ;
+        console.log('Encryption length AES : ' + response.file_data_AES.length) ;
+        console.log('Encryption length RC4 : ' + response.file_data_RC4.length) ;
+        console.log('Encryption length DES : ' + response.file_data_DES.length) ;
 
-      const aesData: string = response.file_data_AES ;
-      const rc4Data: string = response.file_data_RC4 ;
-      const desData: string = response.file_data_DES ;
-      if (response.file_data_AES) {
-        this.fileName = this.fileToDecrypt ;
-        if (this.fileToDecrypt.endsWith('.mp4')) {
-          this.encryptionService.decryptFile(aesData,  rc4Data,  desData, this.fileToDecrypt, 'video').then((response) => {
-            this.decryptedDataFileAES = response[0] ;
-            this.decryptedDataFileRC4 = response[1] ;
-            this.decryptedDataFileDES = response[2] ;
-            this.waitingMessage = "" ;
-          }) ;
-        } else if (this.fileToDecrypt.endsWith('.pdf')){
-          // console.log('decryption start')
-          // console.log(aesData)
-          this.encryptionService.decryptFile(aesData, rc4Data, desData, this.fileToDecrypt, 'pdf').then((response) => {
-            this.decryptedDataFileAES = response[0] ;
-            this.decryptedDataFileRC4 = response[1] ;
-            this.decryptedDataFileDES = response[2] ;
-            this.waitingMessage = "" ;
-          }) ;
-        } else if (this.fileToDecrypt.endsWith('.txt')){
-          // console.log('decryption start')
-          // console.log(aesData)
-          this.encryptionService.decryptFile(aesData, rc4Data, desData, this.fileToDecrypt, 'text').then((response) => {
-            this.decryptedDataFileAES = response[0] ;
-            this.decryptedDataFileRC4 = response[1] ;
-            this.decryptedDataFileDES = response[2] ;
-            this.waitingMessage = "" ;
-          }) ;
-        } else if (this.fileToDecrypt.endsWith('.jpeg')){
-          // console.log('decryption start')
-          // console.log(aesData)
-          this.encryptionService.decryptFile(aesData, rc4Data, desData, this.fileToDecrypt, 'jpeg').then((response) => {
-            this.decryptedDataFileAES = response[0] ;
-            this.decryptedDataFileRC4 = response[1] ;
-            this.decryptedDataFileDES = response[2] ;
-            this.waitingMessage = "" ;
-          }) ;
-        } else if (this.fileToDecrypt.endsWith('.jpg')){
-          // console.log('decryption start')
-          // console.log(aesData)
-          this.encryptionService.decryptFile(aesData, rc4Data, desData, this.fileToDecrypt, 'jpg').then((response) => {
-            this.decryptedDataFileAES = response[0] ;
-            this.decryptedDataFileRC4 = response[1] ;
-            this.decryptedDataFileDES = response[2] ;
-            this.waitingMessage = "" ;
-          }) ;
-        } else if (this.fileToDecrypt.endsWith('.png')){
-          // console.log('decryption start')
-          // console.log(aesData)
-          this.encryptionService.decryptFile(aesData, rc4Data, desData, this.fileToDecrypt, 'png').then((response) => {
-            this.decryptedDataFileAES = response[0] ;
-            this.decryptedDataFileRC4 = response[1] ;
-            this.decryptedDataFileDES = response[2] ;
-            this.waitingMessage = "" ;
-          }) ;
-        } else if (this.fileToDecrypt.endsWith('.xls')){
-          // console.log('decryption start')
-          // console.log(aesData)
-          this.encryptionService.decryptFile(aesData, rc4Data, desData, this.fileToDecrypt, 'xls').then((response) => {
-            this.decryptedDataFileAES = response[0] ;
-            this.decryptedDataFileRC4 = response[1] ;
-            this.decryptedDataFileDES = response[2] ;
-            this.waitingMessage = "" ;
-          }) ;
-        } else if (this.fileToDecrypt.endsWith('.xlsx')){
-          // console.log('decryption start')
-          // console.log(aesData)
-          this.encryptionService.decryptFile(aesData, rc4Data, desData, this.fileToDecrypt, 'xlsx').then((response) => {
-            this.decryptedDataFileAES = response[0] ;
-            this.decryptedDataFileRC4 = response[1] ;
-            this.decryptedDataFileDES = response[2] ;
-            this.waitingMessage = "" ;
-          }) ;
-        } 
-      } else {
-        console.log(response.message)
+        const aesData: string = response.file_data_AES ;
+        const rc4Data: string = response.file_data_RC4 ;
+        const desData: string = response.file_data_DES ;
+        if (response.file_data_AES) {
+          this.fileName = this.fileToDecrypt ;
+          if (this.fileToDecrypt.endsWith('.mp4')) {
+            this.encryptionService.decryptFile(aesData,  rc4Data,  desData, this.fileToDecrypt, 'video').then((response) => {
+              this.decryptedDataFileAES = response[0] ;
+              this.decryptedDataFileRC4 = response[1] ;
+              this.decryptedDataFileDES = response[2] ;
+              this.waitingMessage = "" ;
+            });
+          } else if (this.fileToDecrypt.endsWith('.pdf')){
+            // console.log('decryption start')
+            // console.log(aesData)
+            this.encryptionService.decryptFile(aesData, rc4Data, desData, this.fileToDecrypt, 'pdf').then((response) => {
+              this.decryptedDataFileAES = response[0] ;
+              this.decryptedDataFileRC4 = response[1] ;
+              this.decryptedDataFileDES = response[2] ;
+              this.waitingMessage = "" ;
+            }) ;
+          } else if (this.fileToDecrypt.endsWith('.txt')){
+            // console.log('decryption start')
+            // console.log(aesData)
+            this.encryptionService.decryptFile(aesData, rc4Data, desData, this.fileToDecrypt, 'text').then((response) => {
+              this.decryptedDataFileAES = response[0] ;
+              this.decryptedDataFileRC4 = response[1] ;
+              this.decryptedDataFileDES = response[2] ;
+              this.waitingMessage = "" ;
+            }) ;
+          } else if (this.fileToDecrypt.endsWith('.jpeg')){
+            // console.log('decryption start')
+            // console.log(aesData)
+            this.encryptionService.decryptFile(aesData, rc4Data, desData, this.fileToDecrypt, 'jpeg').then((response) => {
+              this.decryptedDataFileAES = response[0] ;
+              this.decryptedDataFileRC4 = response[1] ;
+              this.decryptedDataFileDES = response[2] ;
+              this.waitingMessage = "" ;
+            }) ;
+          } else if (this.fileToDecrypt.endsWith('.jpg')){
+            // console.log('decryption start')
+            // console.log(aesData)
+            this.encryptionService.decryptFile(aesData, rc4Data, desData, this.fileToDecrypt, 'jpg').then((response) => {
+              this.decryptedDataFileAES = response[0] ;
+              this.decryptedDataFileRC4 = response[1] ;
+              this.decryptedDataFileDES = response[2] ;
+              this.waitingMessage = "" ;
+            }) ;
+          } else if (this.fileToDecrypt.endsWith('.png')){
+            // console.log('decryption start')
+            // console.log(aesData)
+            this.encryptionService.decryptFile(aesData, rc4Data, desData, this.fileToDecrypt, 'png').then((response) => {
+              this.decryptedDataFileAES = response[0] ;
+              this.decryptedDataFileRC4 = response[1] ;
+              this.decryptedDataFileDES = response[2] ;
+              this.waitingMessage = "" ;
+            }) ;
+          } else if (this.fileToDecrypt.endsWith('.xls')){
+            // console.log('decryption start')
+            // console.log(aesData)
+            this.encryptionService.decryptFile(aesData, rc4Data, desData, this.fileToDecrypt, 'xls').then((response) => {
+              this.decryptedDataFileAES = response[0] ;
+              this.decryptedDataFileRC4 = response[1] ;
+              this.decryptedDataFileDES = response[2] ;
+              this.waitingMessage = "" ;
+            }) ;
+          } else if (this.fileToDecrypt.endsWith('.xlsx')){
+            // console.log('decryption start')
+            // console.log(aesData)
+            this.encryptionService.decryptFile(aesData, rc4Data, desData, this.fileToDecrypt, 'xlsx').then((response) => {
+              this.decryptedDataFileAES = response[0] ;
+              this.decryptedDataFileRC4 = response[1] ;
+              this.decryptedDataFileDES = response[2] ;
+              this.waitingMessage = "" ;
+            }) ;
+          } 
+        } else {
+          console.log(response.message)
+        }
+        this.showInputKey = true ;
+      },
+      error: (err) => {
+        this.waitingMessage = "Error while decrypted the document, the key should be wrong"
       }
-      this.showInputKey = true ;
     }) ;
     this.keyToDecrypt = "" ;
   }

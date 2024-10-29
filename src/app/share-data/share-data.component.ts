@@ -20,6 +20,8 @@ export class ShareDataComponent implements OnInit {
     private back: BackConnectionService
   ) {}
 
+  currentUser: string = '' ;
+
   friendUsername: string = '' ;
   okMessage: string = '' ;
   errorMessage: string = '' ;
@@ -38,6 +40,10 @@ export class ShareDataComponent implements OnInit {
         console.error('Error fetching notifications:', error);
       }
     );
+
+    // Get the user name 
+    var user = localStorage.getItem('user')
+    this.currentUser = user ? user : "noUser" ;
   }
 
   // Get the token to identify the user connected

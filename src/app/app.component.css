@@ -28,9 +28,20 @@ header {
 }
 
 .title {
-    display:flex;
+    display:grid;
     justify-content: center;
     height: 40px;
+    grid-auto-flow: column;
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+}
+
+.titleRightPart {
+    display: flex;
+    flex-direction: row;
+    justify-self: end;
+    align-self: center;
+    margin-right: 10px;
 }
 
 .head-grid {
@@ -43,6 +54,7 @@ header {
 .button-container {
     display: flex;
     visibility: visible;
+    align-items: center;
 }
 
 .page {
