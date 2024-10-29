@@ -49,12 +49,16 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
 }
 
 .button-container {
     display: flex;
     visibility: visible;
     align-items: center;
+    justify-content: space-between;
+    margin-left: 5px;
+    width: 100%;
 }
 
 .page {
